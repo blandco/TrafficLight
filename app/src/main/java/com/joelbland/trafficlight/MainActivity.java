@@ -5,6 +5,8 @@ import static android.graphics.Color.RED;
 import static android.graphics.Color.YELLOW;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
 
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -12,6 +14,7 @@ import android.graphics.drawable.DrawableWrapper;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 public class MainActivity extends AppCompatActivity {
@@ -24,11 +27,27 @@ public class MainActivity extends AppCompatActivity {
         // Get the IDs for the View resources
         Button button = findViewById(R.id.button);
         ImageView lights = findViewById(R.id.imageView);
+        ImageButton backgroundButton = findViewById(R.id.imageButton);
+        ConstraintLayout layout = findViewById(R.id.constraintLayout);
+
 
         // Get the Drawable resources for the three different lights
         Drawable red = getDrawable(R.drawable.traffic_lights_red);
         Drawable green = getDrawable(R.drawable.traffic_lights_green);
         Drawable yellow = getDrawable(R.drawable.traffic_lights_yellow);
+
+        // Get the Drawable resources for the backgrounds.
+        Drawable city = getDrawable(R.drawable.city);
+        Drawable city2 = getDrawable(R.drawable.city2);
+        Drawable city3 = getDrawable(R.drawable.city3);
+
+        // Go ahead and set the Layout background with the city Drawable
+        // so we can change it later in the backgroundButton.setOnClickListener
+        layout.setBackground(city);
+
+        // Go ahead and set the button text so our control structure works
+        // on the first click!!!! Now I can sleep.
+        button.setText("STOP");
 
         // OnClick listener for the button.
         button.setOnClickListener(new View.OnClickListener() {
@@ -55,6 +74,33 @@ public class MainActivity extends AppCompatActivity {
 
               }
           });
+
+        // OnClick listener for the background change button.
+        backgroundButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                // Debug output to compare the names of drawables.
+                // System.out.println(layout.getBackground());
+                // System.out.println(city);
+                // System.out.println(city2);
+                // System.out.println(city3);
+
+                if (layout.getBackground() == city) {
+                    layout.setBackground(city2);
+                }
+                else if (layout.getBackground() == city2) {
+                    layout.setBackground(city3);
+                }
+                else {
+                    layout.setBackground(city);
+                }
+
+
+
+
+            }
+        });
     }
 }
 
